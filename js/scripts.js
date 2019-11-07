@@ -1,12 +1,11 @@
 //Global variables.
 var EMPTY = "Empty";
 var X = "X";
-var O = "O";
+var O= "O";
 
 //Constructor the Space box.
-function Space (xCoordinate, yCoordinate) {
-  this.X = xCoordinate,
-  this.Y = yCoordinate,
+function Space (position) {
+  this.position = position,
   this.value = EMPTY
 }
 
@@ -27,16 +26,6 @@ Space.prototype.mark = function(value) {
   return true;
 }
 
-// //
-// Space.prototype.markedBy = function() {
-//   if (this.value === X) {
-//     return X;
-//   } else if (this.value === O) {
-//     return O
-//   }
-//   return EMPTY;
-// }
-
 //Constructor for Board (full game board). This board contains spaces (Space). Empty array.
 function Board() {
   this.spaces = []
@@ -45,11 +34,9 @@ function Board() {
 //Method - it's called when the user clicks starts (newGame).
 Board.prototype.initializeBoard = function() {
   var space;
-  for (var x=0; x<3; x++) {
-    for (var y=0; y<3; y++) {
-      space = new Space(x, y);
+  for (var x=0; x<9; x++) {
+      space = new Space(x);
       this.spaces.push(space);
-    }
   }
 }
 
@@ -145,6 +132,21 @@ Game.prototype.move = function(id) {
   return false
 }
 
+//Method - it allows the program to assign a random selection after the user X plays.
+Game.prototype.computerMove = function () {
+  var emptySpaces = [];
+  for (var i = 0; i < this.board.spaces.length; i++) {
+    if (this.board.spaces[i].isEmpty()) {
+      emptySpaces.push(this.board.spaces[i]);
+    }
+  }
+  var randomIndex = Math.floor(Math.random() * (emptySpaces.length - 1));
+  var randomSpace = emptySpaces[randomIndex]; 
+  randomSpace.mark(this.turn);
+  this.nextTurn();
+  return randomSpace.position;
+}
+
 $(document).ready(function() {
   var game;
   $("#startButton").click(function () {
@@ -165,16 +167,18 @@ $(document).ready(function() {
             $("#player").text(O);
         } else {
           $("#player").text(X);
-        }
+        };
 
+        //Shows winner result
     var resultCondition = game.board.hasWon();
-      if (resultCondition) {
-        $("#gameDisplay").hide();
-        $("#result").fadeIn();
-        if (resultCondition === "Tie") {
-          $("#winner").text("It is a tie!");
-        } else {
-          $("#winner").text("The winner is player " + resultCondition + "!");
+       if (resultCondition) {
+        displayResultCondition(resultCondition);
+      } else {
+        var computerSelection = game.computerMove()+1;
+        $("#" + computerSelection).text(O);
+        resultCondition = game.board.hasWon();
+        if (resultCondition) {
+         displayResultCondition(resultCondition);
         }
       }
     }
@@ -186,3 +190,18 @@ $(document).ready(function() {
     $("#result").hide();
   })
 });
+
+//
+function displayResultCondition (resultCondition) {
+  $("#gameDisplay").hide();
+  $("#result").fadeIn();
+  if (resultCondition === "Tie") {
+    $("#winner").text("It is a tie!");
+  } 
+  else if (resultCondition === 'O') {
+    $("#winner").text("The Computer Won!");
+  }
+  else {
+    $("#winner").text("You won!");
+  }
+}

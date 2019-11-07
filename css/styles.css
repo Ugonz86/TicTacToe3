@@ -27,6 +27,11 @@ h1 {
   font-weight: bold;
 }
 
+.color {
+  color: red;
+  font-weight: bold;
+}
+
 .jumbotron {
   border-radius: 20px;
   margin-top: 50px;

@@ -1,0 +1,47 @@
+h1 {
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-family: 'Syncopate', sans-serif;
+  font-size: 60px;
+}
+
+.container {
+  text-align: center;
+  margin-top: 75px;
+}
+
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 200px 200px 200px;
+}
+
+.grid-item {
+  border: 1px solid grey;
+  border-radius: 20px;
+  padding: 75px;
+  text-align: center;
+  background-color: #212529;
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.jumbotron {
+  border-radius: 20px;
+  margin-top: 50px;
+}
+
+#gameDisplay {
+  display: none;
+}
+
+#result {
+  display: none;
+  font-weight: bold;
+}
+
+#player {
+  color: red;
+  font-weight: bold;
+}

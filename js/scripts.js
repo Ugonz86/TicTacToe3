@@ -191,7 +191,7 @@ $(document).ready(function() {
   })
 });
 
-//
+//Result display
 function displayResultCondition (resultCondition) {
   $("#gameDisplay").hide();
   $("#result").fadeIn();

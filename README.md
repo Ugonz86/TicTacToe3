@@ -29,7 +29,7 @@
 _No bugs at the moment._
 
 # Github Link
-* _https://ugonz86.github.io/TicTacToe/_
+* _https://ugonz86.github.io/TicTacToe3/_
 
 ## Support and contact details
 
